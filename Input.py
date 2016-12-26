@@ -3,7 +3,7 @@ import csv
 
 doc = [] 
 query = [] 
-relation = []
+reldict = []
 
 
 
@@ -22,11 +22,11 @@ def inputquery() :
 
 
 def inputrelation() :
-	with open("relation.txt", "r") as reldict :
-	    for line in reldict :
+	with open("relation.txt", "r") as relation :
+	    for line in relation :
 	    	line = line.replace("\n","")
 	    	currentline = line.split(" ")
-	    	relation.append(currentline)
+	    	reldict.append(currentline)
 
 
 inputdoc()

@@ -6,16 +6,17 @@ import random
 
 query = Input.query
 doc = Input.doc 
-relation = Input.relation 
+reldict = Input.reldict 
 output = Output.output
+
 
 rellist = []
 tokenlist = []
 
 def markentity(query,doc):
 	tokenlist = []
+	tokenquery = []
 	tokenqueries = []
-	tokenquery = [] 
 	for i in range(1, len(query)) :
 		for k in range (len(doc)) :
 			for j in range(1, 3) : 
@@ -35,14 +36,14 @@ def markentity(query,doc):
 	return tokenlist
 
 
-def markrelation (tokenlist, relation):
+def markrelation (tokenlist, reldict):
 	tokenquery = [] 
 	for i in range (len(tokenlist)) :
 		for j in range (len(tokenlist[i])) :
 			did = tokenlist[i][j][0]
-			for k in range (len(relation)) :
-				for l in range (1,len(relation[k])) :
-					location = doc[did].find(relation[k][l])
+			for k in range (len(reldict)) :
+				for l in range (1,len(reldict[k])) :
+					location = doc[did].find(reldict[k][l])
 					if location != -1 :
 						tokenquery.append([k,location])
 			if (len(tokenquery) > 0) :				
@@ -54,30 +55,40 @@ def voterelation (tokenlist):
 	for i in range (len(tokenlist)) :
 		vote = [0,0,0,0,0,0,0]
 		for j in range (len(tokenlist[i])) :
-	 		for k in range (1,len(tokenlist[i][j])) :
-	 			for l in range (len(tokenlist[i][j][k])) :
-	 				for m in range (len(relation)):
-	 					if tokenlist[i][j][k][0] == m :
-	 						vote[m] += 1;
+			entity = []
+			relation = [] 
+			for k in range (1,len(tokenlist[i][j])) :
+ 				if type(tokenlist[i][j][k][0])  == str :
+ 					entity.append(tokenlist[i][j][k])
+ 				else :
+ 					relation.append(tokenlist[i][j][k])
+			for k in range (len(entity)) :
+ 				for l in range (len(relation)) :
+ 			 		vote[relation[l][0]] += tokenlength(entity[k],relation[l])		
 		maxval = max(vote)
 		if maxval != 0 :
 			rid = vote.index(maxval)
 		else :
 			rid = random.randint(0,6)
-		rellist.append([query[i+1][0],relation[rid][0]])
+		rellist.append([query[i+1][0],reldict[rid][0]])
 	return rellist
+
+
+def tokenlength (entity, relation):
+	delta = abs(entity[1] - relation[1])
+	if delta == 0 :
+		return 0 
+	else : 
+		return 1 / delta
+
+
 
 
 
 
 tokenlist = markentity(query, doc)
+tokenlist = markrelation(tokenlist, reldict)
 
-tokenlist = markrelation(tokenlist, relation)
-
-print (tokenlist)
 rellist = voterelation(tokenlist)
-
-for i in range (len(rellist)) :
-	print (rellist[i]) 
 
 output(rellist)
