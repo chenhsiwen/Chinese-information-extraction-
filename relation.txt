@@ -1,0 +1,7 @@
+spouse 夫 妻 婚 嫁 娶 老公 老婆 外子 內子
+parent 父 母 爸 媽
+child 兒子 子 女兒 兒 女 生 孩 小孩 懷孕 男
+sibling 兄 弟 姊 妹 哥 手足
+birthPlace 出生 生 誕生
+deathPlace 死 歿 葬 亡
+workPlace 工作 工 服務 侍奉 臣 大學 官 教授 教 帶領 小學 中學 公司 組織 政府
