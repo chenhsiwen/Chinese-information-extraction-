@@ -1,8 +1,6 @@
 #encoding=utf-8
 import csv
 
-
-
 def output(rellist) :
 	outputlist = []
 	col  = ['Id', 'Property']  
