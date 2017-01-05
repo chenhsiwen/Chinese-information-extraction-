@@ -4,7 +4,7 @@ import csv
 doc = [] 
 query = [] 
 reldict = []
-
+entdict = []
 
 
 def inputdoc() :
@@ -27,8 +27,16 @@ def inputrelation() :
 	    	line = line.replace("\n","")
 	    	currentline = line.split(" ")
 	    	reldict.append(currentline)
+def inputentity() :
+	with open("entity.txt", "r") as entity :
+	    for line in entity :
+	    	line = line.replace("\n","")
+	    	currentline = line.split(" ")
+	    	entdict.append(currentline)
+
 
 
 inputdoc()
 inputquery()
 inputrelation()
+inputentity()
